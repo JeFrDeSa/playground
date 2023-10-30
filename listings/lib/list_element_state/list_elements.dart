@@ -73,8 +73,16 @@ class ListElementStateRefreshItemState
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("I am alive since $_aliveSinceSeconds sec."),
-      subtitle: Text("Widget ID: ${widget.id}"),
+      title: Text(
+        "I am alive since $_aliveSinceSeconds sec.",
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+      subtitle: Text(
+        "Widget ID: ${widget.id}",
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     );
   }
 }
