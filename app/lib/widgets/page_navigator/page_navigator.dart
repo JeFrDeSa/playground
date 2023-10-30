@@ -1,4 +1,4 @@
-import 'package:animations/implicit_animated_widgets/page_indicator/page_flow_indicator.dart';
+import 'package:app/widgets/page_indicator/page_flow_indicator.dart';
 
 /// The navigator initialization and update functionality.
 mixin PageNavigator {

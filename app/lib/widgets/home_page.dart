@@ -1,5 +1,5 @@
-import 'package:animations/implicit_animated_widgets/page_indicator/dotted_line_indicator/dotted_line_page_indicator.dart';
 import 'package:app/widgets/home_page_app_bar.dart';
+import 'package:app/widgets/page_indicator/dotted_line_indicator/dotted_line_page_indicator.dart';
 import 'package:app/widgets/page_navigator/button_navigator/button_page_navigator.dart';
 import 'package:flutter/material.dart';
 

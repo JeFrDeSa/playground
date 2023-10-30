@@ -1,4 +1,4 @@
-import 'package:animations/implicit_animated_widgets/page_indicator/page_flow_indicator.dart';
+import 'package:app/widgets/page_indicator/page_flow_indicator.dart';
 import 'package:app/widgets/page_navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
 
