@@ -78,7 +78,7 @@ class _ListElementStateRefreshBehaviourState
         final value = (key as ValueKey<String>).value;
         if (value == "header") {
           // Additional information for better understanding.
-          ignorePrint("$methodName: $value -> 0");
+          if (canDetermineIndex) ignorePrint("$methodName: $value -> 0");
           return 0;
         }
 
