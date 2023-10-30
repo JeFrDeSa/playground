@@ -37,16 +37,16 @@ class _CounterBlocPageState extends State<CounterBlocPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                counterBloc.increment();
+                counterBloc.decrement();
               },
-              child: const Icon(Icons.add),
+              child: const Icon(Icons.remove),
             ),
             const SizedBox(width: 24),
             ElevatedButton(
               onPressed: () {
-                counterBloc.decrement();
+                counterBloc.increment();
               },
-              child: const Icon(Icons.remove),
+              child: const Icon(Icons.add),
             ),
           ],
         ),
