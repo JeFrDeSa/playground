@@ -13,10 +13,8 @@ class HomePageBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      child: Container(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).padding.bottom,
-        ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: pageNavigator,
       ),
     );

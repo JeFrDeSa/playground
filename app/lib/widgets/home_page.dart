@@ -1,4 +1,5 @@
 import 'package:app/widgets/home_page_app_bar.dart';
+import 'package:app/widgets/home_page_bottom_bar.dart';
 import 'package:app/widgets/page_indicator/dotted_line_indicator/dotted_line_page_indicator.dart';
 import 'package:app/widgets/page_navigator/button_navigator/button_page_navigator.dart';
 import 'package:flutter/material.dart';
@@ -49,16 +50,18 @@ class _HomePageState extends State<HomePage> {
       // (!) Caution: Without any state management it might be tricky to
       // define the widgets outside of HomePage, while setState(() {}) of
       // onCurrentPageChanged needs to be defined within the HomePage.
-      bottomNavigationBar: ButtonPageNavigator(
-        pageFlowIndicator: DottedLinePageIndicator(
-          currentPage: _currentPage,
-          totalNumberOfPages: widget.pages.length,
+      bottomNavigationBar: HomePageBottomBar(
+        pageNavigator: ButtonPageNavigator(
+          pageFlowIndicator: DottedLinePageIndicator(
+            currentPage: _currentPage,
+            totalNumberOfPages: widget.pages.length,
+          ),
+          onCurrentPageChanged: (index) {
+            setState(() {
+              _currentPage = index;
+            });
+          },
         ),
-        onCurrentPageChanged: (index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
       ),
     );
   }
