@@ -45,8 +45,8 @@ class _PageSelectionButtonState extends State<PageSelectionButton> {
             children: [
               SizedBox(height: topSpacing),
               Container(
-                // TODO(Material Design): Why is the text color not onSecondary?
-                // Understand Material Design
+                // TODO(Understand): Why is the text color not onSecondary?
+                // Material Design
                 //
                 //  Expected: Since the color of the container is secondary,
                 //  the color of the text below should be onSecondary.

@@ -68,7 +68,11 @@ final darkTheme = ThemeData(
   bottomAppBarTheme: _bottomAppBarTheme(bottomAppBarColor: _primaryColorDark),
   textTheme: _textTheme(textColor: _onPrimaryColorDark),
   iconTheme: _iconTheme(iconColor: _onPrimaryColorDark),
-  cardTheme: _cardTheme(_cardColorDark),
+  cardTheme: _cardTheme(cardColor: _cardColorDark),
+  elevatedButtonTheme: _elevatedButtonTheme(
+    buttonColor: _secondaryColorDark,
+    foregroundColor: _onSecondaryColorDark,
+  ),
 );
 
 final lightTheme = ThemeData(
@@ -94,7 +98,11 @@ final lightTheme = ThemeData(
   bottomAppBarTheme: _bottomAppBarTheme(bottomAppBarColor: _primaryColorLight),
   textTheme: _textTheme(textColor: _onPrimaryColorLight),
   iconTheme: _iconTheme(iconColor: _onPrimaryColorLight),
-  cardTheme: _cardTheme(_cardColorLight),
+  cardTheme: _cardTheme(cardColor: _cardColorLight),
+  elevatedButtonTheme: _elevatedButtonTheme(
+    buttonColor: _secondaryColorLight,
+    foregroundColor: _onSecondaryColorLight,
+  ),
 );
 
 // region --- HELPER ---
@@ -161,11 +169,24 @@ IconThemeData _iconTheme({required Color iconColor}) {
   return IconThemeData(color: iconColor);
 }
 
-CardTheme _cardTheme(Color cardColor) {
+CardTheme _cardTheme({required Color cardColor}) {
   return CardTheme(
     color: cardColor,
     shape: _defaultRoundedBoarders,
     elevation: ui_properties.widgetElevationMedium,
+  );
+}
+
+ElevatedButtonThemeData _elevatedButtonTheme({
+  required Color buttonColor,
+  required Color foregroundColor,
+}) {
+  return ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      foregroundColor: foregroundColor,
+      backgroundColor: buttonColor,
+      shape: _defaultRoundedBoarders,
+    ),
   );
 }
 
