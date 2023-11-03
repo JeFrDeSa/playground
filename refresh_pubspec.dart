@@ -35,7 +35,7 @@ void _runPubGet(FileSystemEntity directory) async {
   }
 }
 
-/// Determines the actual flutter app directory name.
+/// Determines the relative path of the directory name.
 /// For example: ./app
 String _determineRelativeAppPath(FileSystemEntity directory) {
   String pathSeparator = Platform.pathSeparator;
