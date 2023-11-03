@@ -1,1 +1,5 @@
-**/.idea/
+# Android Studio
+.idea/
+
+# Flutter Version Manager (FVM) - Flutter SDK symbolic link
+/.fvm/flutter_sdk
