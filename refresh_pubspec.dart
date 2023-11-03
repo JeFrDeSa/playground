@@ -1,6 +1,6 @@
 import 'dart:io';
 
-/// Updates all pubspec.yaml files of the flutter modules. Uses the
+/// Updates all pubspec.yaml files of the different flutter apps. Uses the
 /// Flutter Version Manager (fvm) to execute the 'pub get' commands.
 void main() async {
   final cwd = Directory.current;
@@ -18,7 +18,7 @@ void main() async {
 /// Runs the 'pug get' command for every directory that contains a pubspec.yaml.
 void _runPubGet(FileSystemEntity directory) async {
   if (await File("${directory.path}/pubspec.yaml").exists()) {
-    final flutterModule = _determineFlutterModule(directory);
+    final flutterModule = _determineRelativeAppPath(directory);
 
     Process.run(
       'fvm',
@@ -35,9 +35,9 @@ void _runPubGet(FileSystemEntity directory) async {
   }
 }
 
-/// Determines the actual flutter module name.
+/// Determines the actual flutter app directory name.
 /// For example: ./app
-String _determineFlutterModule(FileSystemEntity directory) {
+String _determineRelativeAppPath(FileSystemEntity directory) {
   String pathSeparator = Platform.pathSeparator;
   String directoryName = directory.path.split(Platform.pathSeparator).last;
   return ".$pathSeparator$directoryName";
