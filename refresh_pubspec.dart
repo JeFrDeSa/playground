@@ -6,7 +6,7 @@ void main() async {
   final cwd = Directory.current;
   final directoryNames = await cwd.list().toList();
 
-  print("Run 'fvm flutter pub get' for all flutter modules.");
+  print("Run 'fvm flutter pub get' for all apps.");
 
   for (final FileSystemEntity directory in directoryNames) {
     _runPubGet(directory);
