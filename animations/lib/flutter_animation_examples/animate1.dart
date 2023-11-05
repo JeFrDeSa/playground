@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 
 enum Layout { one, two }
 
-/// Implements the Flutter animation example: animation0
+/// Implements the Flutter animation example: animation1
 /// https://docs.flutter.dev/ui/animations/tutorial
 ///
-/// Every time the Animation generates a new value, the addListener() function
-/// calls setState(), which marks the current frame dirty and forces build() to
-/// be called again.
-class FlutterAnimationExample0 extends StatefulWidget {
+/// The AnimatedWidget base class allows to separate the core widget code from
+/// the animation code.
+class FlutterAnimationExample1 extends StatefulWidget {
   /// Creates several separated spaces that will be animated during the
   /// different tutorial steps (animation0 - animation5).
-  const FlutterAnimationExample0({super.key});
+  const FlutterAnimationExample1({super.key});
 
   @override
-  State<FlutterAnimationExample0> createState() =>
-      _FlutterAnimationExample0State();
+  State<FlutterAnimationExample1> createState() =>
+      _FlutterAnimationExample1State();
 }
 
-class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
+class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
     with SingleTickerProviderStateMixin {
   Layout _currentLayout = Layout.one;
 
@@ -46,7 +45,13 @@ class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
   late double _settingsButtonSize;
   late double _favouriteDirectoriesListHeight;
   late double _favouriteDirectoriesListWidth;
-  late double _playBarHeight;
+
+  // Obsolete, because the [playBarHeightAnimation] provides this information
+  // now. The [AnimatedSpace] extends the AnimationWidget, which requires a
+  // listenable (e.g. Animation<double>) that provides the values for the
+  // Animation.
+  // late double _playBarHeight;
+
   late double _playBarWidth;
 
   late Animation<double> playBarHeightAnimation;
@@ -58,11 +63,8 @@ class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
 
     controller = AnimationController(duration: 500.milliseconds, vsync: this);
     playBarHeightAnimation =
-    Tween<double>(begin: _playBarHeightLayout1, end: _playBarHeightLayout2)
-        .animate(controller)
-      ..addListener(() {
-        setState(() {});
-      });
+        Tween<double>(begin: _playBarHeightLayout1, end: _playBarHeightLayout2)
+            .animate(controller);
   }
 
   @override
@@ -73,7 +75,7 @@ class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
 
   @override
   Widget build(BuildContext context) {
-    const hintText = "Flutter animation0 example.\n- Refreshes the widget subtree";
+    const hintText = "Flutter animation1 example.\n- Refreshes only the widget";
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: LayoutBuilder(
@@ -156,12 +158,10 @@ class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
                         width: _favouriteDirectoriesListWidth,
                         color: Colors.green,
                       ),
-                      _positionedContainer(
-                        left: 0,
-                        bottom: 0,
-                        height: _playBarHeight,
+                      AnimatedSpace(
+                        animation: playBarHeightAnimation,
+                        height: _bottomLayoutHeight,
                         width: _playBarWidth,
-                        color: Colors.amber,
                         child: Text(
                           hintText,
                           style: Theme
@@ -169,6 +169,9 @@ class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
                               .textTheme
                               .bodyMedium,
                         ),
+                        left: 0,
+                        bottom: 0,
+                        color: Colors.amber,
                       ),
                     ],
                   );
@@ -213,8 +216,70 @@ class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
         maxHeight - _settingsButtonSize - _layoutPadding;
     _favouriteDirectoriesListWidth = maxWidth * 0.225;
 
-    _playBarHeight = maxHeight * playBarHeightAnimation.value;
     _playBarWidth = _titleListWidth;
+  }
+
+  Widget _positionedContainer({
+    required double height,
+    required double width,
+    Color? color,
+    Widget? child,
+    double? left,
+    double? top,
+    double? right,
+    double? bottom,
+  }) {
+    return Positioned(
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      child: Container(
+        width: width,
+        height: height,
+        color: color,
+        child: child,
+      ),
+    );
+  }
+}
+
+class AnimatedSpace extends AnimatedWidget {
+  final double height;
+  final double width;
+  final Widget? child;
+  final Color? color;
+  final double? left;
+  final double? top;
+  final double? right;
+  final double? bottom;
+
+  const AnimatedSpace({
+    required Animation<double> animation,
+    required this.height,
+    required this.width,
+    this.child,
+    this.color,
+    this.left,
+    this.top,
+    this.right,
+    this.bottom,
+    super.key,
+  }) : super(listenable: animation);
+
+  @override
+  Widget build(BuildContext context) {
+    final animation = listenable as Animation<double>;
+    return _positionedContainer(
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      height: height * animation.value,
+      width: width,
+      color: color,
+      child: child,
+    );
   }
 
   Widget _positionedContainer({
