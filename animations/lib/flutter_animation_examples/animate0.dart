@@ -1,15 +1,35 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
-class FlutterAnimationExample00 extends StatefulWidget {
-  const FlutterAnimationExample00({super.key});
+enum Layout { one, two }
+
+/// Implements the Flutter animation example: animation0
+/// https://docs.flutter.dev/ui/animations/tutorial
+class FlutterAnimationExample0 extends StatefulWidget {
+  /// Creates several separated spaces that will be animated during the
+  /// different tutorial steps (animation0 - animation5).
+  const FlutterAnimationExample0({super.key});
 
   @override
-  State<FlutterAnimationExample00> createState() =>
-      _FlutterAnimationExample00State();
+  State<FlutterAnimationExample0> createState() =>
+      _FlutterAnimationExample0State();
 }
 
-class _FlutterAnimationExample00State extends State<FlutterAnimationExample00> {
+class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
+    with SingleTickerProviderStateMixin {
+  Layout _currentLayout = Layout.one;
+
   final _layoutPadding = 10.0;
+
+  // region Layout 1
+  final _playBarHeightLayout1 = 0.225;
+
+  // endregion
+
+  // region Layout 2
+  final _playBarHeightLayout2 = 0.35;
+
+  // endregion
 
   late double _topLayoutHeight;
   late double _bottomLayoutHeight;
@@ -24,6 +44,28 @@ class _FlutterAnimationExample00State extends State<FlutterAnimationExample00> {
   late double _favouriteDirectoriesListWidth;
   late double _playBarHeight;
   late double _playBarWidth;
+
+  late Animation<double> playBarHeightAnimation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(duration: 500.milliseconds, vsync: this);
+    playBarHeightAnimation =
+        Tween<double>(begin: _playBarHeightLayout1, end: _playBarHeightLayout2)
+            .animate(controller)
+          ..addListener(() {
+            setState(() {});
+          });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +112,7 @@ class _FlutterAnimationExample00State extends State<FlutterAnimationExample00> {
                     maxHeight: constraints.maxHeight,
                     maxWidth: constraints.maxWidth,
                   );
+
                   return Stack(
                     children: [
                       _positionedContainer(
@@ -84,7 +127,22 @@ class _FlutterAnimationExample00State extends State<FlutterAnimationExample00> {
                         top: 0,
                         height: _settingsButtonSize,
                         width: _settingsButtonSize,
-                        color: Colors.red,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_currentLayout == Layout.one) {
+                              controller.forward();
+                              _currentLayout = Layout.two;
+                            } else {
+                              controller.reverse();
+                              _currentLayout = Layout.one;
+                            }
+                          },
+                          child: Icon(
+                            _currentLayout == Layout.one
+                                ? Icons.keyboard_double_arrow_up_rounded
+                                : Icons.keyboard_double_arrow_down_rounded,
+                          ),
+                        ),
                       ),
                       _positionedContainer(
                         right: 0,
@@ -143,14 +201,15 @@ class _FlutterAnimationExample00State extends State<FlutterAnimationExample00> {
         maxHeight - _settingsButtonSize - _layoutPadding;
     _favouriteDirectoriesListWidth = maxWidth * 0.225;
 
-    _playBarHeight = maxHeight * 0.225;
+    _playBarHeight = maxHeight * playBarHeightAnimation.value;
     _playBarWidth = _titleListWidth;
   }
 
   Widget _positionedContainer({
     required double height,
     required double width,
-    required Color color,
+    Color? color,
+    Widget? child,
     double? left,
     double? top,
     double? right,
@@ -165,6 +224,7 @@ class _FlutterAnimationExample00State extends State<FlutterAnimationExample00> {
         width: width,
         height: height,
         color: color,
+        child: child,
       ),
     );
   }
