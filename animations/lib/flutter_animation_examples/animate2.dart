@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 /// notification to indicate a completed state change.
 class FlutterAnimationExample2 extends StatefulWidget {
   /// Creates a [_ClickAbleContainer], which increases and decreases its size.
+  /// A Text information is indicating the upcoming container state.
   const FlutterAnimationExample2({super.key});
 
   @override
@@ -85,7 +86,7 @@ class _FlutterAnimationExample2State extends State<FlutterAnimationExample2>
                       isInverted: true,
                       child: SizedBox(
                         child: Text(
-                          "MIN",
+                          "M I N",
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
@@ -94,7 +95,7 @@ class _FlutterAnimationExample2State extends State<FlutterAnimationExample2>
                       animation: _containerStateIndicatorAnimation,
                       child: SizedBox(
                         child: Text(
-                          "MAX",
+                          "M A X",
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
