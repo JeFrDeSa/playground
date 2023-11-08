@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// The AnimatedWidget base class allows to separate the core widget logic from
 /// the animation logic.
 class FlutterAnimationExample1 extends StatefulWidget {
-  /// Creates a clickable container, which increases and decreases its size.
+  /// Creates a [_ClickAbleContainer], which increases and decreases its size.
   const FlutterAnimationExample1({super.key});
 
   @override
@@ -64,7 +64,7 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: ClickAbleContainer(
+            child: _ClickAbleContainer(
               animation: _containerAnimation,
               color: Colors.red,
               onTap: () {
@@ -76,6 +76,7 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
                   _isExpanded = true;
                 }
               },
+              child: const SizedBox(),
             ),
           ),
         ),
@@ -84,18 +85,18 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
   }
 }
 
-class ClickAbleContainer extends AnimatedWidget {
+class _ClickAbleContainer extends AnimatedWidget {
   final void Function()? onTap;
   final Color? color;
   final Widget? child;
 
-  const ClickAbleContainer({
+  const _ClickAbleContainer({
     required Animation<double> animation,
     this.onTap,
     this.color,
     this.child,
-    super.key,
-  }) : super(listenable: animation);
+    Key? key,
+  }) : super(key: key, listenable: animation);
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +107,7 @@ class ClickAbleContainer extends AnimatedWidget {
       color: color,
       child: InkWell(
         onTap: onTap,
-        child: const SizedBox(),
+        child: child,
       ),
     );
   }

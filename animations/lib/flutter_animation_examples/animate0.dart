@@ -16,6 +16,11 @@ class FlutterAnimationExample0 extends StatefulWidget {
       _FlutterAnimationExample0State();
 }
 
+/// Use [SingleTickerProviderStateMixin] because ...
+/// "When creating an AnimationController, you pass it a vsync argument. The
+/// presence of vsync prevents offscreen animations from consuming unnecessary
+/// resources. You can use your stateful object as the vsync by adding
+/// SingleTickerProviderStateMixin to the class definition."
 class _FlutterAnimationExample0State extends State<FlutterAnimationExample0>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
