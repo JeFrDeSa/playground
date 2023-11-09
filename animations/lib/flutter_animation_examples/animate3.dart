@@ -70,7 +70,7 @@ class _FlutterAnimationExample3State extends State<FlutterAnimationExample3>
             child: GrowTransition(
               animation: _containerAnimation,
               child: _createClickAbleContainer(
-                color: Colors.indigoAccent,
+                color: Colors.grey,
                 onTap: () {
                   if (_isExpanded) {
                     _indicatorAnimationController.reverse();
