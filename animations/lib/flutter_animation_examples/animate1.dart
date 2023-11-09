@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 /// Implements the Flutter animation example: animation1
 /// https://docs.flutter.dev/ui/animations/tutorial
 ///
-/// The AnimatedWidget base class allows to separate the core widget logic from
-/// the animation logic.
+/// Every time the Animation generates a new value, the build() method of the
+/// child widget with base class AnimatedWidget will be called. This allows to
+/// remove the addListener() and setState() during the Animation initialisation
+/// and the separating of the child widget and its animation logic from the
+/// parent widget.
 class FlutterAnimationExample1 extends StatefulWidget {
   /// Creates a [_ClickAbleContainer], which increases and decreases its size.
   const FlutterAnimationExample1({super.key});

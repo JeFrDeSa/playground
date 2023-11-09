@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 /// Implements the Flutter animation example: animation2
 /// https://docs.flutter.dev/ui/animations/tutorial
 ///
-/// The AnimatedWidget base class allows to separate the core widget logic from
-/// the animation logic. The Animation status listener provides the state change
-/// notification to indicate a completed state change.
+/// Every time the Animation generates a new value, the build() method of the
+/// child widget with base class AnimatedWidget will be called. The Animation
+/// status listener provides the state change notification to indicate a
+/// completed state change.
 class FlutterAnimationExample2 extends StatefulWidget {
   /// Creates a [_ClickAbleContainer], which increases and decreases its size.
-  /// A Text information is indicating the upcoming container state.
+  /// A Text information is indicating the upcoming resp. current container state.
   const FlutterAnimationExample2({super.key});
 
   @override
