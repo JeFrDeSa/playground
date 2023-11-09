@@ -1,6 +1,7 @@
 import 'package:animations/flutter_animation_examples/animate0.dart';
 import 'package:animations/flutter_animation_examples/animate1.dart';
 import 'package:animations/flutter_animation_examples/animate2.dart';
+import 'package:animations/flutter_animation_examples/animate3.dart';
 import 'package:app/widgets/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class AnimationsHomePage extends StatelessWidget {
     FlutterAnimationExample0(),
     FlutterAnimationExample1(),
     FlutterAnimationExample2(),
+    FlutterAnimationExample3(),
   ];
 
   @override
