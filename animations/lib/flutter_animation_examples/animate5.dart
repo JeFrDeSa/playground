@@ -92,7 +92,7 @@ class _FlutterAnimationExample5State extends State<FlutterAnimationExample5>
                   duration: 250.milliseconds,
                   firstChild: SizedBox(
                     child: Text(
-                      "$hour:$minute",
+                      " $hour:$minute ",
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
