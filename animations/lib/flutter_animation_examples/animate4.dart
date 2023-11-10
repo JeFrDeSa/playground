@@ -3,24 +3,24 @@ import 'dart:async';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
-/// Implements the Flutter animation example: animation3
+/// Implements the Flutter animation example: animation4
 /// https://docs.flutter.dev/ui/animations/tutorial
 ///
 /// Every time the Animation generates a new value, the build() method of the
-/// child widget with base class AnimatedWidget will be called. The Animation
-/// status listener provides the state change notification to indicate a
-/// completed state change.
-class FlutterAnimationExample3 extends StatefulWidget {
+/// transition widget will be called. The AnimationBuilder defines the actual
+/// transition and acts in between the child and its parent widget. It allows
+/// to separate the animation logic from the child widget that will be animated.
+class FlutterAnimationExample4 extends StatefulWidget {
   /// Creates a [_ClickAbleContainer], which increases and decreases its size.
   /// A Text information is indicating the upcoming resp. current container state.
-  const FlutterAnimationExample3({super.key});
+  const FlutterAnimationExample4({super.key});
 
   @override
-  State<FlutterAnimationExample3> createState() =>
-      _FlutterAnimationExample3State();
+  State<FlutterAnimationExample4> createState() =>
+      _FlutterAnimationExample4State();
 }
 
-class _FlutterAnimationExample3State extends State<FlutterAnimationExample3>
+class _FlutterAnimationExample4State extends State<FlutterAnimationExample4>
     with TickerProviderStateMixin {
   bool _isExpanded = false;
 
@@ -60,48 +60,50 @@ class _FlutterAnimationExample3State extends State<FlutterAnimationExample3>
       children: [
         const SizedBox(height: 24),
         Text(
-          "Flutter animation3 example.",
+          "Flutter animation4 example.",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 24),
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: _ClickAbleContainer(
+            child: GrowTransition(
               animation: _containerAnimation,
-              color: Colors.indigoAccent,
-              onTap: () {
-                if (_isExpanded) {
-                  _indicatorAnimationController.reverse();
-                } else {
-                  _indicatorAnimationController.forward();
-                }
-              },
-              child: Align(
-                alignment: Alignment.center,
-                child: Stack(
+              child: _createClickAbleContainer(
+                color: Colors.grey,
+                onTap: () {
+                  if (_isExpanded) {
+                    _indicatorAnimationController.reverse();
+                  } else {
+                    _indicatorAnimationController.forward();
+                  }
+                },
+                child: Align(
                   alignment: Alignment.center,
-                  children: [
-                    _OpacityContainer(
-                      animation: _containerStateIndicatorAnimation,
-                      isInverted: true,
-                      child: SizedBox(
-                        child: Text(
-                          "M I N",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      OpacityTransition(
+                        animation: _containerStateIndicatorAnimation,
+                        isInverted: true,
+                        child: SizedBox(
+                          child: Text(
+                            "M I N",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
                         ),
                       ),
-                    ),
-                    _OpacityContainer(
-                      animation: _containerStateIndicatorAnimation,
-                      child: SizedBox(
-                        child: Text(
-                          "M A X",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                      OpacityTransition(
+                        animation: _containerStateIndicatorAnimation,
+                        child: SizedBox(
+                          child: Text(
+                            "M A X",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -153,28 +155,12 @@ class _FlutterAnimationExample3State extends State<FlutterAnimationExample3>
     });
   }
 
-// endregion
-}
-
-class _ClickAbleContainer extends AnimatedWidget {
-  final void Function()? onTap;
-  final Color? color;
-  final Widget? child;
-
-  const _ClickAbleContainer({
-    required Animation<double> animation,
-    this.onTap,
-    this.color,
-    this.child,
-    Key? key,
-  }) : super(key: key, listenable: animation);
-
-  @override
-  Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
+  Widget _createClickAbleContainer({
+    required void Function()? onTap,
+    Color? color,
+    Widget? child,
+  }) {
     return Container(
-      width: animation.value * 0.5,
-      height: animation.value,
       color: color,
       child: InkWell(
         onTap: onTap,
@@ -182,24 +168,58 @@ class _ClickAbleContainer extends AnimatedWidget {
       ),
     );
   }
+
+// endregion
 }
 
-class _OpacityContainer extends AnimatedWidget {
-  final Widget? child;
-  final bool isInverted;
+class GrowTransition extends StatelessWidget {
+  final Animation<double> animation;
+  final Widget child;
 
-  const _OpacityContainer({
-    required Animation<double> animation,
-    this.isInverted = false,
-    this.child,
-    Key? key,
-  }) : super(key: key, listenable: animation);
+  const GrowTransition({
+    required this.animation,
+    required this.child,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
-    return Opacity(
-      opacity: isInverted ? 1 - animation.value : animation.value,
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        return SizedBox(
+          height: animation.value,
+          width: animation.value * 0.5,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
+}
+
+class OpacityTransition extends StatelessWidget {
+  final Animation<double> animation;
+  final Widget child;
+  final bool isInverted;
+
+  const OpacityTransition({
+    required this.animation,
+    required this.child,
+    this.isInverted = false,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        return Opacity(
+          opacity: isInverted ? 1 - animation.value : animation.value,
+          child: child,
+        );
+      },
       child: child,
     );
   }

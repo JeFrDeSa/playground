@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 /// Implements the Flutter animation example: animation1
 /// https://docs.flutter.dev/ui/animations/tutorial
 ///
-/// Every time the Animation generates a new value, the build() method of the
-/// child widget with base class AnimatedWidget will be called. This allows to
-/// remove the addListener() and setState() during the Animation initialisation
-/// and the separating of the child widget and its animation logic from the
-/// parent widget.
+/// Every time the Animation generates a new value, the addListener() function
+/// calls setState(), which marks the current frame dirty and forces build() to
+/// be called again.
 class FlutterAnimationExample1 extends StatefulWidget {
-  /// Creates a [_ClickAbleContainer], which increases and decreases its size.
+  /// Creates a clickable container, which increases and decreases its size.
   const FlutterAnimationExample1({super.key});
 
   @override
@@ -18,6 +16,11 @@ class FlutterAnimationExample1 extends StatefulWidget {
       _FlutterAnimationExample1State();
 }
 
+/// Use [SingleTickerProviderStateMixin] because ...
+/// "When creating an AnimationController, you pass it a vsync argument. The
+/// presence of vsync prevents offscreen animations from consuming unnecessary
+/// resources. You can use your stateful object as the vsync by adding
+/// SingleTickerProviderStateMixin to the class definition."
 class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
@@ -44,7 +47,10 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
       vsync: this,
     );
     _containerAnimation = Tween<double>(begin: _smallHeight, end: _bigHeight)
-        .animate(animationController);
+        .animate(animationController)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override
@@ -67,51 +73,26 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
         Expanded(
           child: Container(
             alignment: Alignment.center,
-            child: _ClickAbleContainer(
-              animation: _containerAnimation,
-              color: Colors.red,
-              onTap: () {
-                if (_isExpanded) {
-                  animationController.reverse();
-                  _isExpanded = false;
-                } else {
-                  animationController.forward();
-                  _isExpanded = true;
-                }
-              },
-              child: const SizedBox(),
+            child: Container(
+              width: _containerAnimation.value * 0.5,
+              height: _containerAnimation.value,
+              color: Colors.green,
+              child: InkWell(
+                child: const SizedBox(),
+                onTap: () {
+                  if (_isExpanded) {
+                    animationController.reverse();
+                    _isExpanded = false;
+                  } else {
+                    animationController.forward();
+                    _isExpanded = true;
+                  }
+                },
+              ),
             ),
           ),
         ),
       ],
-    );
-  }
-}
-
-class _ClickAbleContainer extends AnimatedWidget {
-  final void Function()? onTap;
-  final Color? color;
-  final Widget? child;
-
-  const _ClickAbleContainer({
-    required Animation<double> animation,
-    this.onTap,
-    this.color,
-    this.child,
-    Key? key,
-  }) : super(key: key, listenable: animation);
-
-  @override
-  Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
-    return Container(
-      width: animation.value * 0.5,
-      height: animation.value,
-      color: color,
-      child: InkWell(
-        onTap: onTap,
-        child: child,
-      ),
     );
   }
 }
