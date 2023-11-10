@@ -30,6 +30,8 @@ class ButtonPageNavigator extends StatefulWidget {
 
 class ButtonPageNavigatorState extends State<ButtonPageNavigator>
     with PageNavigator {
+  late final bool _isEnabled;
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +41,7 @@ class ButtonPageNavigatorState extends State<ButtonPageNavigator>
       pageFlowIndicator: widget.pageFlowIndicator,
       onCurrentPageChanged: widget.onCurrentPageChanged,
     );
+    _isEnabled = _isNavigatorEnabled();
   }
 
   @override
@@ -48,49 +51,65 @@ class ButtonPageNavigatorState extends State<ButtonPageNavigator>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () {
-            updateCurrentPage(
-              // This navigates immediately to page 1
-              stepSize: -totalNumberOfPages - 1,
-              limitedAt: 0,
-            );
-          },
+          onPressed: _stateRelatedOnPressed(
+            onPressed: () {
+              updateCurrentPage(
+                // This navigates immediately to page 1
+                stepSize: -totalNumberOfPages - 1,
+                limitedAt: 0,
+              );
+            },
+          ),
           child: const Icon(Icons.first_page),
         ),
         const SizedBox(width: 8),
         ElevatedButton(
-          onPressed: () {
-            updateCurrentPage(
-              stepSize: -1,
-              limitedAt: 0,
-            );
-          },
+          onPressed: _stateRelatedOnPressed(
+            onPressed: () {
+              updateCurrentPage(
+                stepSize: -1,
+                limitedAt: 0,
+              );
+            },
+          ),
           child: const Icon(Icons.arrow_back),
         ),
         const SizedBox(width: 24),
-        widget.pageFlowIndicator ?? const SizedBox(width: 48),
+        if (_isEnabled) widget.pageFlowIndicator ?? const SizedBox(),
         const SizedBox(width: 24),
         ElevatedButton(
-          onPressed: () {
-            updateCurrentPage(
-              stepSize: 1,
-              limitedAt: totalNumberOfPages - 1,
-            );
-          },
+          onPressed: _stateRelatedOnPressed(
+            onPressed: () {
+              updateCurrentPage(
+                stepSize: 1,
+                limitedAt: totalNumberOfPages - 1,
+              );
+            },
+          ),
           child: const Icon(Icons.arrow_forward),
         ),
         const SizedBox(width: 8),
         ElevatedButton(
-          onPressed: () {
-            updateCurrentPage(
-              // This navigates immediately to the last page
-              stepSize: totalNumberOfPages + 1,
-              limitedAt: totalNumberOfPages - 1,
-            );
-          },
+          onPressed: _stateRelatedOnPressed(
+            onPressed: () {
+              updateCurrentPage(
+                // This navigates immediately to the last page
+                stepSize: totalNumberOfPages + 1,
+                limitedAt: totalNumberOfPages - 1,
+              );
+            },
+          ),
           child: const Icon(Icons.last_page),
         ),
       ],
     );
+  }
+
+  bool _isNavigatorEnabled() {
+    return widget.pageFlowIndicator != null && totalNumberOfPages > 1;
+  }
+
+  void Function()? _stateRelatedOnPressed({required Function() onPressed}) {
+    return _isEnabled ? onPressed : null;
   }
 }

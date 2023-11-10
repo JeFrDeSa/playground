@@ -1,3 +1,4 @@
+import 'package:animations/flutter_animation_examples/animation_examples.dart';
 import 'package:app/widgets/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +14,7 @@ class AnimationsHomePage extends StatelessWidget {
   static const keys = _AnimationsHomePageKeys._();
 
   final pages = const [
-    Placeholder(color: Colors.red),
-    Placeholder(color: Colors.green),
-    Placeholder(color: Colors.blue),
+    FlutterAnimationExamples(),
   ];
 
   @override
