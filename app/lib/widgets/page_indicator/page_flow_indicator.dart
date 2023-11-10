@@ -5,24 +5,32 @@ abstract class PageFlowIndicator extends StatelessWidget {
   final int currentPage;
   final int totalNumberOfPages;
   final Axis direction;
+  final double width;
 
   const PageFlowIndicator({
     Key? key,
     required this.currentPage,
     required this.totalNumberOfPages,
     this.direction = Axis.horizontal,
+    this.width = 50,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: direction,
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: determinePageFlowIndicators(
-        context: context,
-        currentPage: currentPage,
-        totalNumberOfPages: totalNumberOfPages,
+    return SizedBox(
+      width: width,
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Flex(
+          direction: direction,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: determinePageFlowIndicators(
+            context: context,
+            currentPage: currentPage,
+            totalNumberOfPages: totalNumberOfPages,
+          ),
+        ),
       ),
     );
   }
@@ -37,4 +45,3 @@ abstract class PageFlowIndicator extends StatelessWidget {
     required int totalNumberOfPages,
   });
 }
-

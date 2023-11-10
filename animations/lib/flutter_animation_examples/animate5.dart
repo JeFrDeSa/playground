@@ -59,6 +59,9 @@ class _FlutterAnimationExample5State extends State<FlutterAnimationExample5>
 
   @override
   Widget build(BuildContext context) {
+    final hour = DateTime.now().hour.toString().padLeft(2, '0');
+    final minute = DateTime.now().minute.toString().padLeft(2, '0');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -90,7 +93,7 @@ class _FlutterAnimationExample5State extends State<FlutterAnimationExample5>
                   duration: 250.milliseconds,
                   firstChild: SizedBox(
                     child: Text(
-                      "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}",
+                      "$hour:$minute",
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
@@ -136,7 +139,7 @@ class TransitionAnimation extends StatelessWidget {
     super.key,
   });
 
-  static final _sizeTween = Tween<double>(begin: 75.0, end: 100.0);
+  static final _sizeTween = Tween<double>(begin: 150.0, end: 200.0);
   static final _opacityTween = Tween<double>(begin: 0.25, end: 1.0);
 
   @override

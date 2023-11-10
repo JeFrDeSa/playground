@@ -41,8 +41,6 @@ class ButtonPageNavigatorState extends State<ButtonPageNavigator>
     );
   }
 
-  // TODO(Refactor): RenderFlex overflow in case of small displays
-  // Refactor the Button and Indicator sizing
   @override
   Widget build(BuildContext context) {
     return Flex(
