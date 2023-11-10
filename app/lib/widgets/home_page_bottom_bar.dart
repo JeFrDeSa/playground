@@ -14,8 +14,11 @@ class HomePageBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: pageNavigator,
+        padding: const EdgeInsets.all(12.0),
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: pageNavigator,
+        ),
       ),
     );
   }

@@ -74,12 +74,12 @@ class ListElementStateRefreshItemState
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        "I am alive since $_aliveSinceSeconds sec.",
+        "Alive since $_aliveSinceSeconds sec.",
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: Text(
-        "Widget ID: ${widget.id}",
+        "ID: ${widget.id}",
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodySmall,
       ),
