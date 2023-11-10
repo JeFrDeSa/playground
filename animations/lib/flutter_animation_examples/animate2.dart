@@ -23,12 +23,12 @@ class _FlutterAnimationExample2State extends State<FlutterAnimationExample2>
   bool _isExpanded = false;
 
   // region Layout 1
-  final _smallHeight = 200.0;
+  final _smallHeight = 50.0;
 
   // endregion
 
   // region Layout 2
-  final _bigHeight = 300.0;
+  final _bigHeight = 150.0;
 
   // endregion
 
@@ -56,31 +56,29 @@ class _FlutterAnimationExample2State extends State<FlutterAnimationExample2>
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(height: 24),
         Text(
-          "Flutter animation2 example.",
+          "Animation 2",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 24),
-        Expanded(
-          child: Container(
-            alignment: Alignment.center,
-            child: _ClickAbleContainer(
-              animation: _containerAnimation,
-              color: Colors.red,
-              onTap: () {
-                if (_isExpanded) {
-                  animationController.reverse();
-                  _isExpanded = false;
-                } else {
-                  animationController.forward();
-                  _isExpanded = true;
-                }
-              },
-              child: const SizedBox(),
-            ),
+        Container(
+          height: _bigHeight,
+          alignment: Alignment.center,
+          child: _ClickAbleContainer(
+            animation: _containerAnimation,
+            color: Colors.red,
+            onTap: () {
+              if (_isExpanded) {
+                animationController.reverse();
+                _isExpanded = false;
+              } else {
+                animationController.forward();
+                _isExpanded = true;
+              }
+            },
+            child: const SizedBox(),
           ),
         ),
       ],
@@ -105,7 +103,7 @@ class _ClickAbleContainer extends AnimatedWidget {
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
     return Container(
-      width: animation.value * 0.5,
+      width: animation.value * 0.75,
       height: animation.value,
       color: color,
       child: InkWell(

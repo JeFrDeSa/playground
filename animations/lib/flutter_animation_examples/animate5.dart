@@ -63,11 +63,10 @@ class _FlutterAnimationExample5State extends State<FlutterAnimationExample5>
     final minute = DateTime.now().minute.toString().padLeft(2, '0');
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(height: 24),
         Text(
-          "Flutter animation5 example.",
+          "Animation 5",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 24),
@@ -98,7 +97,7 @@ class _FlutterAnimationExample5State extends State<FlutterAnimationExample5>
                     ),
                   ),
                   secondChild: Text(
-                    "--:--",
+                    " --:-- ",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),

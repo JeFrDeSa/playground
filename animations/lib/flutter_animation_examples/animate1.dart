@@ -26,12 +26,12 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
   bool _isExpanded = false;
 
   // region Layout 1
-  final _smallHeight = 200.0;
+  final _smallHeight = 50.0;
 
   // endregion
 
   // region Layout 2
-  final _bigHeight = 300.0;
+  final _bigHeight = 150.0;
 
   // endregion
 
@@ -62,33 +62,31 @@ class _FlutterAnimationExample1State extends State<FlutterAnimationExample1>
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(height: 24),
         Text(
-          "Flutter animation1 example.",
+          "Animation 1",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 24),
-        Expanded(
+        Container(
+          height: _bigHeight,
+          alignment: Alignment.center,
           child: Container(
-            alignment: Alignment.center,
-            child: Container(
-              width: _containerAnimation.value * 0.5,
-              height: _containerAnimation.value,
-              color: Colors.green,
-              child: InkWell(
-                child: const SizedBox(),
-                onTap: () {
-                  if (_isExpanded) {
-                    animationController.reverse();
-                    _isExpanded = false;
-                  } else {
-                    animationController.forward();
-                    _isExpanded = true;
-                  }
-                },
-              ),
+            width: _containerAnimation.value * 0.75,
+            height: _containerAnimation.value,
+            color: Colors.green,
+            child: InkWell(
+              child: const SizedBox(),
+              onTap: () {
+                if (_isExpanded) {
+                  animationController.reverse();
+                  _isExpanded = false;
+                } else {
+                  animationController.forward();
+                  _isExpanded = true;
+                }
+              },
             ),
           ),
         ),

@@ -1,8 +1,4 @@
-import 'package:animations/flutter_animation_examples/animate1.dart';
-import 'package:animations/flutter_animation_examples/animate2.dart';
-import 'package:animations/flutter_animation_examples/animate3.dart';
-import 'package:animations/flutter_animation_examples/animate4.dart';
-import 'package:animations/flutter_animation_examples/animate5.dart';
+import 'package:animations/flutter_animation_examples/animation_examples.dart';
 import 'package:app/widgets/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +14,7 @@ class AnimationsHomePage extends StatelessWidget {
   static const keys = _AnimationsHomePageKeys._();
 
   final pages = const [
-    FlutterAnimationExample1(),
-    FlutterAnimationExample2(),
-    FlutterAnimationExample3(),
-    FlutterAnimationExample4(),
-    FlutterAnimationExample5(),
+    FlutterAnimationExamples(),
   ];
 
   @override

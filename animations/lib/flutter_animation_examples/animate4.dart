@@ -25,12 +25,12 @@ class _FlutterAnimationExample4State extends State<FlutterAnimationExample4>
   bool _isExpanded = false;
 
   // region Layout 1
-  final _smallHeight = 200.0;
+  final _smallHeight = 50.0;
 
   // endregion
 
   // region Layout 2
-  final _bigHeight = 300.0;
+  final _bigHeight = 150.0;
 
   // endregion
 
@@ -57,54 +57,52 @@ class _FlutterAnimationExample4State extends State<FlutterAnimationExample4>
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(height: 24),
         Text(
-          "Flutter animation4 example.",
+          "Animation 4",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 24),
-        Expanded(
-          child: Container(
-            alignment: Alignment.center,
-            child: GrowTransition(
-              animation: _containerAnimation,
-              child: _createClickAbleContainer(
-                color: Colors.grey,
-                onTap: () {
-                  if (_isExpanded) {
-                    _indicatorAnimationController.reverse();
-                  } else {
-                    _indicatorAnimationController.forward();
-                  }
-                },
-                child: Align(
+        Container(
+          height: _bigHeight,
+          alignment: Alignment.center,
+          child: GrowTransition(
+            animation: _containerAnimation,
+            child: _createClickAbleContainer(
+              color: Colors.grey,
+              onTap: () {
+                if (_isExpanded) {
+                  _indicatorAnimationController.reverse();
+                } else {
+                  _indicatorAnimationController.forward();
+                }
+              },
+              child: Align(
+                alignment: Alignment.center,
+                child: Stack(
                   alignment: Alignment.center,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      OpacityTransition(
-                        animation: _containerStateIndicatorAnimation,
-                        isInverted: true,
-                        child: SizedBox(
-                          child: Text(
-                            "M I N",
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
+                  children: [
+                    OpacityTransition(
+                      animation: _containerStateIndicatorAnimation,
+                      isInverted: true,
+                      child: SizedBox(
+                        child: Text(
+                          "M I N",
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      OpacityTransition(
-                        animation: _containerStateIndicatorAnimation,
-                        child: SizedBox(
-                          child: Text(
-                            "M A X",
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
+                    ),
+                    OpacityTransition(
+                      animation: _containerStateIndicatorAnimation,
+                      child: SizedBox(
+                        child: Text(
+                          "M A X",
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -190,7 +188,7 @@ class GrowTransition extends StatelessWidget {
       builder: (context, child) {
         return SizedBox(
           height: animation.value,
-          width: animation.value * 0.5,
+          width: animation.value,
           child: child,
         );
       },
