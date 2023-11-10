@@ -49,6 +49,7 @@ class _FlutterAnimationExample3State extends State<FlutterAnimationExample3>
 
   @override
   void dispose() {
+    _indicatorAnimationController.dispose();
     _containerAnimationController.dispose();
     super.dispose();
   }
