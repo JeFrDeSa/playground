@@ -1,43 +1,25 @@
-/// Remove Duplicates from Sorted Array
+/// Remove duplicates from sorted array
 ///
 /// Returns the length of unique elements, contained in the given list.
 int removeDuplicates(List<int> numbers) {
-  int currentValue = numbers.first;
-  int replacementCount = 0;
+  if (numbers.isEmpty || numbers.length == 1) return numbers.length;
 
-  int start = 0;
-  void determineStart() {
-    start = numbers.indexWhere((element) => element == currentValue);
+  // Space Complexity: O(1)
+  // * Determine variables or data structures that consume memory
+  // * Determine how the memory usage scales with the size of the input
+  var k = 1;
+
+  // Time Complexity: O(n)
+  // * Basic Operation: Comparison (numbers[i] > numbers[i+1]) inside the loop
+  // * The loop runs n times, where n is the length of the list
+  for (int i = 0; i < numbers.length - 1; i++) {
+    if (numbers[i] != numbers[i + 1]) {
+      numbers[k] = numbers[i + 1];
+      k++;
+    }
   }
 
-  int end = 0;
-  void determineEnd() {
-    end = numbers.lastIndexWhere((element) => element == currentValue);
-  }
-
-  void determineReplacementCount() {
-    if (start == end) return;
-    replacementCount += end - start;
-  }
-
-  for (; end < numbers.length - 1; currentValue = numbers[end + 1]) {
-    determineStart();
-    determineEnd();
-    determineReplacementCount();
-
-    final replacementList = List<int>.generate(end - start, (index) => 101);
-    numbers.replaceRange(
-      start + 1,
-      end + 1,
-      replacementList,
-    );
-
-    if (end + 1 >= numbers.length) break;
-  }
-
-  numbers.sort();
-
-  return numbers.length - replacementCount;
+  return k;
 }
 
 /// Dart exercise: https://leetcode.com/problems/remove-duplicates-from-sorted-array/
@@ -45,10 +27,13 @@ int removeDuplicates(List<int> numbers) {
 /// * Understand sort algorithm and in-place:
 /// https://en.wikipedia.org/wiki/In-place_algorithm
 void main() {
-  final numbers = [1, 1]; // Input array
-  final expectedNumbers = [1]; // The expected answer with correct length
+  // Input array
+  final numbers = [1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5];
 
-  int k = removeDuplicates(numbers); // Calls your implementation
+  // The expected answer with correct length
+  final expectedNumbers = [1, 2, 3, 4, 5];
+
+  int k = removeDuplicates(numbers);
 
   print("Is k as expected? - ${k == expectedNumbers.length}");
   for (int i = 0; i < k; i++) {
