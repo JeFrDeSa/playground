@@ -1,5 +1,5 @@
+import 'package:app_theme/theme_home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:app_theme/theme_data.dart' as theme_data;
 
 void main() {
   runApp(const AppThemeContainer());
@@ -12,11 +12,21 @@ class AppThemeContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App Theme',
-      theme: theme_data.lightTheme,
-      darkTheme: theme_data.darkTheme,
+      themeMode: ThemeMode.system,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+        colorScheme: const ColorScheme.light(),
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blueGrey,
+        colorScheme: const ColorScheme.dark(),
+        brightness: Brightness.dark,
+      ),
       debugShowCheckedModeBanner: false,
-      // TODO(Implement): Different widgets and textStyle to illustrate the Theme.
-      home: const Placeholder(),
+      home: ThemeHomePage(key: ThemeHomePage.keys.pageKey),
     );
   }
 }
