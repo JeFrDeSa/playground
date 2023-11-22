@@ -1,4 +1,4 @@
-import 'package:app_theme/theme_home_page.dart';
+import 'package:app_theme/app_theme_home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,17 +16,15 @@ class AppThemeContainer extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.blue,
-        colorScheme: const ColorScheme.light(),
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.blueGrey,
-        colorScheme: const ColorScheme.dark(),
         brightness: Brightness.dark,
       ),
       debugShowCheckedModeBanner: false,
-      home: ThemeHomePage(key: ThemeHomePage.keys.pageKey),
+      home: AppThemeHomePage(key: AppThemeHomePage.keys.pageKey),
     );
   }
 }
