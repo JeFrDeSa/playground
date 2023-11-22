@@ -36,31 +36,33 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HomePageAppBar(
-        pageTitle: widget.subPageTitle,
-        pageNumber: _currentPage + 1,
-      ),
-      body: widget.pages[_currentPage],
-      // TODO(Refactor): The HomePage should not define the navigator for all pages.
-      // The kind of the navigator (e.g. ButtonPageNavigator) as well as the
-      // optional page flow indicator (e.g. DottedLinePageIndicator) should
-      // be defined from outside.
-      //
-      // (!) Caution: Without any state management it might be tricky to
-      // define the widgets outside of HomePage, while setState(() {}) of
-      // onCurrentPageChanged needs to be defined within the HomePage.
-      bottomNavigationBar: HomePageBottomBar(
-        pageNavigator: ButtonPageNavigator(
-          pageFlowIndicator: DottedLinePageIndicator(
-            currentPage: _currentPage,
-            totalNumberOfPages: widget.pages.length,
+    return SafeArea(
+      child: Scaffold(
+        appBar: HomePageAppBar(
+          pageTitle: widget.subPageTitle,
+          pageNumber: _currentPage + 1,
+        ),
+        body: widget.pages[_currentPage],
+        // TODO(Refactor): The HomePage should not define the navigator for all pages.
+        // The kind of the navigator (e.g. ButtonPageNavigator) as well as the
+        // optional page flow indicator (e.g. DottedLinePageIndicator) should
+        // be defined from outside.
+        //
+        // (!) Caution: Without any state management it might be tricky to
+        // define the widgets outside of HomePage, while setState(() {}) of
+        // onCurrentPageChanged needs to be defined within the HomePage.
+        bottomNavigationBar: HomePageBottomBar(
+          pageNavigator: ButtonPageNavigator(
+            pageFlowIndicator: DottedLinePageIndicator(
+              currentPage: _currentPage,
+              totalNumberOfPages: widget.pages.length,
+            ),
+            onCurrentPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
           ),
-          onCurrentPageChanged: (index) {
-            setState(() {
-              _currentPage = index;
-            });
-          },
         ),
       ),
     );
