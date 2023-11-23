@@ -1,5 +1,5 @@
 import 'package:app/widgets/home_page.dart';
-import 'package:app_theme/widget/theme_group.dart';
+import 'package:app_theme/widget/button_theme_group.dart';
 import 'package:flutter/material.dart';
 
 class _AppThemeHomePageKeys {
@@ -15,14 +15,123 @@ class AppThemeHomePage extends StatelessWidget {
 
   final pages = [
     Center(
-      child: ThemeGroup(
+      child: ButtonThemeGroup(
         title: "Buttons",
-        children: [
-          ElevatedButton(onPressed: () {}, child: const Text("elevated")),
-          FilledButton(onPressed: () {}, child: const Text("filled")),
-          FilledButton.tonal(onPressed: () {}, child: const Text("filled tonal")),
-          OutlinedButton(onPressed: () {}, child: const Text("outlined")),
-          TextButton(onPressed: () {}, child: const Text("text")),
+        buttons: [
+          SizedBox(
+            width: 120,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text("elevated"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: FilledButton(
+              onPressed: () {},
+              child: const Text("filled"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: FilledButton.tonal(
+              onPressed: () {},
+              child: const Text("filled tonal"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: OutlinedButton(
+              onPressed: () {},
+              child: const Text("outlined"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text("text"),
+            ),
+          ),
+        ],
+        iconButtons: [
+          SizedBox(
+            width: 120,
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.sunny),
+              label: const Text("Icon"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: FilledButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.sunny),
+              label: const Text("Icon"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: FilledButton.tonalIcon(
+              onPressed: () {},
+              icon: const Icon(Icons.sunny),
+              label: const Text("Icon"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: OutlinedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.sunny),
+              label: const Text("Icon"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.sunny),
+              label: const Text("Icon"),
+            ),
+          ),
+        ],
+        disabledButtons: const [
+          SizedBox(
+            width: 120,
+            child: ElevatedButton(
+              onPressed: null,
+              child: Text("elevated"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: FilledButton(
+              onPressed: null,
+              child: Text("filled"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: FilledButton.tonal(
+              onPressed: null,
+              child: Text("filled tonal"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: OutlinedButton(
+              onPressed: null,
+              child: Text("outlined"),
+            ),
+          ),
+          SizedBox(
+            width: 120,
+            child: TextButton(
+              onPressed: null,
+              child: Text("text"),
+            ),
+          ),
         ],
       ),
     ),
