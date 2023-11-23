@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: HomePageAppBar(
           pageTitle: widget.subPageTitle,
-          pageNumber: _currentPage + 1,
+          pageNumber: widget.pages.length > 1 ? _currentPage + 1 : null,
         ),
         body: widget.pages[_currentPage],
         // TODO(Refactor): The HomePage should not define the navigator for all pages.

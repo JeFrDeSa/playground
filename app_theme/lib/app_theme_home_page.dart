@@ -11,19 +11,21 @@ class _AppThemeHomePageKeys {
 class AppThemeHomePage extends StatelessWidget {
   static const keys = _AppThemeHomePageKeys._();
 
-  const AppThemeHomePage({super.key});
+  AppThemeHomePage({super.key});
 
-  final pages = const [
+  final pages = [
     Center(
       child: ThemeGroup(
         title: "Buttons",
         children: [
-          SizedBox(height: 100, width: 100, child: Placeholder()),
-          SizedBox(height: 100, width: 100, child: Placeholder()),
-          SizedBox(height: 100, width: 100, child: Placeholder()),
+          ElevatedButton(onPressed: () {}, child: const Text("elevated")),
+          FilledButton(onPressed: () {}, child: const Text("filled")),
+          FilledButton.tonal(onPressed: () {}, child: const Text("filled tonal")),
+          OutlinedButton(onPressed: () {}, child: const Text("outlined")),
+          TextButton(onPressed: () {}, child: const Text("text")),
         ],
       ),
-    )
+    ),
   ];
 
   @override

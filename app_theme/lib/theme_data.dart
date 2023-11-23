@@ -46,6 +46,7 @@ const _onErrorColorLight = Color.fromARGB(0xff, 0x00, 0x00, 0x00);
 // endregion
 
 final darkTheme = ThemeData(
+  useMaterial3: true,
   scaffoldBackgroundColor: _backgroundColorDark,
   disabledColor: _disabledColorDark,
   fontFamily: 'LocalAssetFont',
@@ -57,7 +58,7 @@ final darkTheme = ThemeData(
     onSecondary: _onSecondaryColorDark,
     tertiary: _tertiaryColorDark,
     onTertiary: _onTertiaryColorDark,
-    background: _onBackgroundColorDark,
+    background: _backgroundColorDark,
     onBackground: _onBackgroundColorDark,
     surface: _surfaceColorDark,
     onSurface: _onSurfaceColorDark,
@@ -65,7 +66,9 @@ final darkTheme = ThemeData(
     onError: _onErrorColorDark,
   ),
   appBarTheme: _appBarTheme(appBarColor: _primaryColorDark),
-  bottomAppBarTheme: _bottomAppBarTheme(bottomAppBarColor: _primaryColorDark),
+  bottomAppBarTheme: _bottomAppBarTheme(
+    bottomAppBarColor: _primaryColorDark,
+  ),
   textTheme: _textTheme(textColor: _onPrimaryColorDark),
   iconTheme: _iconTheme(iconColor: _onPrimaryColorDark),
   cardTheme: _cardTheme(cardColor: _cardColorDark),
@@ -73,9 +76,16 @@ final darkTheme = ThemeData(
     buttonColor: _secondaryColorDark,
     foregroundColor: _onSecondaryColorDark,
   ),
+  outlinedButtonTheme: _outlinedButtonTheme(
+    foregroundColor: _onSecondaryColorDark,
+  ),
+  textButtonTheme: _textButtonTheme(
+    foregroundColor: _onSecondaryColorDark,
+  ),
 );
 
 final lightTheme = ThemeData(
+  useMaterial3: true,
   scaffoldBackgroundColor: _backgroundColorLight,
   disabledColor: _disabledColorLight,
   fontFamily: 'LocalAssetFont',
@@ -87,7 +97,7 @@ final lightTheme = ThemeData(
     tertiary: _tertiaryColorLight,
     onTertiary: _onTertiaryColorLight,
     onSecondary: _onSecondaryColorLight,
-    background: _onBackgroundColorLight,
+    background: _backgroundColorLight,
     onBackground: _onBackgroundColorLight,
     surface: _surfaceColorLight,
     onSurface: _onSurfaceColorLight,
@@ -95,12 +105,20 @@ final lightTheme = ThemeData(
     onError: _onErrorColorLight,
   ),
   appBarTheme: _appBarTheme(appBarColor: _primaryColorLight),
-  bottomAppBarTheme: _bottomAppBarTheme(bottomAppBarColor: _primaryColorLight),
+  bottomAppBarTheme: _bottomAppBarTheme(
+    bottomAppBarColor: _primaryColorLight,
+  ),
   textTheme: _textTheme(textColor: _onPrimaryColorLight),
   iconTheme: _iconTheme(iconColor: _onPrimaryColorLight),
   cardTheme: _cardTheme(cardColor: _cardColorLight),
   elevatedButtonTheme: _elevatedButtonTheme(
     buttonColor: _secondaryColorLight,
+    foregroundColor: _onSecondaryColorLight,
+  ),
+  outlinedButtonTheme: _outlinedButtonTheme(
+    foregroundColor: _onSecondaryColorLight,
+  ),
+  textButtonTheme: _textButtonTheme(
     foregroundColor: _onSecondaryColorLight,
   ),
 );
@@ -109,12 +127,13 @@ final lightTheme = ThemeData(
 
 AppBarTheme _appBarTheme({required Color appBarColor}) {
   return AppBarTheme(
-      color: appBarColor,
-      elevation: ui_properties.widgetElevationSmall,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: appBarColor,
-        systemNavigationBarColor: appBarColor,
-      ));
+    backgroundColor: appBarColor,
+    elevation: ui_properties.widgetElevationSmall,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: appBarColor,
+      systemNavigationBarColor: appBarColor,
+    ),
+  );
 }
 
 BottomAppBarTheme _bottomAppBarTheme({required Color bottomAppBarColor}) {
@@ -185,6 +204,29 @@ ElevatedButtonThemeData _elevatedButtonTheme({
     style: ElevatedButton.styleFrom(
       foregroundColor: foregroundColor,
       backgroundColor: buttonColor,
+      shape: _defaultRoundedBoarders,
+    ),
+  );
+}
+
+OutlinedButtonThemeData _outlinedButtonTheme({
+  required Color foregroundColor,
+}) {
+  return OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: foregroundColor,
+      backgroundColor: Colors.transparent,
+      shape: _defaultRoundedBoarders,
+    ),
+  );
+}
+
+TextButtonThemeData _textButtonTheme({
+  required Color foregroundColor,
+}) {
+  return TextButtonThemeData(
+    style: TextButton.styleFrom(
+      foregroundColor: foregroundColor,
       shape: _defaultRoundedBoarders,
     ),
   );
